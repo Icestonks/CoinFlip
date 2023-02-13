@@ -1,0 +1,16 @@
+package dk.iskold.utils;
+
+import net.md_5.bungee.api.ChatColor;
+
+import java.util.Arrays;
+
+public class Chat {
+    public static String colored(String s) {
+        return ChatColor.translateAlternateColorCodes('&', s);
+    }
+    public static String plain(String s) {
+        return s.replaceAll("§", "&");
+
+    }
+
+}

@@ -1,0 +1,10 @@
+name: CoinFlip
+version: '${project.version}'
+main: dk.iskold.Main
+api-version: 1.8
+authors: [ iskoldcool & Shad0wsense ]
+description: Create a coinflip against other players!
+commands:
+  coinflip:
+    description: Create a new coinflip
+    aliases: [cf]
