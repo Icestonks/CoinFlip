@@ -1,5 +1,6 @@
 package dk.iskold;
 
+import dk.iskold.utils.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -53,6 +54,7 @@ public class AdvancedLicense {
             log(1, "Failed as a result of " + vt.toString());
             log(1, "Disabling plugin!");
             log(0, "[]==========[License-System]==========[]");
+            Bukkit.broadcastMessage(Chat.colored("&8[ &e&lCOIN&f&lFLIP &8] &cDit license er ikke gyldigt!"));
 
             Bukkit.getScheduler().cancelTasks(plugin);
             Bukkit.getPluginManager().disablePlugin(plugin);

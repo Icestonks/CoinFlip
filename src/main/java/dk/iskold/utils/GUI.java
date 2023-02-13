@@ -18,50 +18,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class GUI {
-    private Inventory inv = null;
-
-    public void ExampleGui() {
-        // Create a new inventory, with no owner (as this isn't a real inventory), a size of nine, called example
-        inv = Bukkit.createInventory(null, 9, "Example");
-
-        // Put the items into the inventory
-        initializeItems();
-    }
-
-    // You can call this whenever you want to put the items in
-    public void initializeItems() {
-        inv.addItem(createGuiItem(Material.DIAMOND_SWORD, "Example Sword", "§aFirst line of the lore", "§bSecond line of the lore"));
-        inv.addItem(createGuiItem(Material.IRON_HELMET, "§bExample Helmet", "§aFirst line of the lore", "§bSecond line of the lore"));
-    }
-
-    // Nice little method to create a gui item with a custom name, and description
-    public static ItemStack createGuiItem(final Material material, final String name, final String... lore) {
-        final ItemStack item = new ItemStack(material, 1);
-        final ItemMeta meta = item.getItemMeta();
-
-        // Set the name of the item
-        meta.setDisplayName(Chat.colored(name));
-
-        // Set the lore of the item
-        List<String> coloredLore = new ArrayList<>();
-        for (String line : lore) {
-            coloredLore.add(Chat.colored(line));
-        }
-
-        meta.setLore(coloredLore);
-
-        item.setItemMeta(meta);
-
-        return item;
-    }
 
     public static ItemStack createItemStack(final ItemStack item, final String name, final String... lore) {
         final ItemMeta meta = item.getItemMeta();
 
-        // Set the name of the item
         meta.setDisplayName(Chat.colored(name));
-
-        // Set the lore of the item
         List<String> coloredLore = new ArrayList<>();
         for (String line : lore) {
             coloredLore.add(Chat.colored(line));
@@ -72,11 +33,6 @@ public class GUI {
         item.setItemMeta(meta);
 
         return item;
-    }
-
-    // You can open the inventory with this
-    public void openInventory(final HumanEntity ent) {
-        ent.openInventory(inv);
     }
 
     public static ItemStack createItemGlass(Material material, int GlassColor, String displayName, String... loreString) {
@@ -92,8 +48,6 @@ public class GUI {
         item.setItemMeta(meta);
         return item;
     }
-
-
 
     public static ItemStack getSkull(String url) {
         ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short)3);

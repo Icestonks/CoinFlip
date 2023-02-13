@@ -2,6 +2,7 @@ package dk.iskold.events;
 
 import com.mojang.authlib.GameProfile;
 import dk.iskold.Main;
+import dk.iskold.commands.Coinflip;
 import dk.iskold.utils.Chat;
 import dk.iskold.utils.Econ;
 import org.bukkit.Bukkit;
@@ -42,13 +43,29 @@ public class InventoryListener implements Listener {
                         Main.coinflips.saveConfig();
                         e.getClickedInventory().clear(e.getSlot());
                         player.playSound(player.getLocation(), Sound.NOTE_PLING, 5 , 1);
+                        return;
 
                     } else {
                         e.getClickedInventory().clear(e.getSlot());
                         e.getWhoClicked().sendMessage(Chat.colored(Main.config.getConfig().getString("Messages.flipertaget")));
+                        return;
                     }
-
                 }
+
+                if(e.getCurrentItem().getType() != Material.AIR) {
+                    ItemStack item = e.getCurrentItem();
+                    ItemMeta meta = item.getItemMeta();
+                    List<String> lore = meta.getLore();
+                    int newPage = Integer.parseInt(lore.get(0).replace(Chat.colored("&7"), ""));
+
+                    if(e.getSlot() == 50 && e.getCurrentItem().getType() != Material.AIR) {
+                        Coinflip.openCoinFlipMenu(player, newPage);
+                    }
+                    if(e.getSlot() == 48 && e.getCurrentItem().getType() != Material.AIR) {
+                        Coinflip.openCoinFlipMenu(player, newPage);
+                    }
+                }
+
                 return;
             }
 

@@ -17,6 +17,7 @@ public class UpdadteInv implements Runnable{
 
     @Override
     public void run() {
+
         if (player.getInventory().getName().equals(name)) {
             player.openInventory(Inv);
         }
