@@ -1,16 +1,18 @@
 package dk.iskold.utils;
 
 import dk.iskold.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 public class Econ {
 
-    public static boolean addMoney(String player, double amount) {
+    public static boolean addMoney(OfflinePlayer player, double amount) {
 
         return Main.econ.depositPlayer(player, amount).transactionSuccess();
     }
 
-    public static boolean removeMoney(String player, double amount) {
-        return Main.econ.bankWithdraw(player, amount).transactionSuccess();
+    public static boolean removeMoney(OfflinePlayer player, double amount) {
+        return Main.econ.withdrawPlayer(player, amount).transactionSuccess();
     }
 
     private boolean addMoneyToPlayer(String playerName, double amount) {

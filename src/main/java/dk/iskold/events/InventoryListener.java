@@ -37,7 +37,7 @@ public class InventoryListener implements Listener {
             if(e.getSlot() >= 45 && e.getSlot() <= 53) {
                 if(e.getSlot() == 45 && e.getCurrentItem().getType() != Material.AIR) {
                     if (Main.coinflips.getConfig().contains("coinflips." + e.getWhoClicked().getUniqueId())) {
-                        Econ.addMoney(e.getWhoClicked().getName(), Double.parseDouble(String.valueOf(Main.coinflips.getConfig().getDouble("coinflips." + e.getWhoClicked().getUniqueId()))));
+                        Econ.addMoney((OfflinePlayer) e.getWhoClicked(), Double.parseDouble(String.valueOf(Main.coinflips.getConfig().getDouble("coinflips." + e.getWhoClicked().getUniqueId()))));
                         Main.coinflips.getConfig().set("coinflips." + e.getWhoClicked().getUniqueId(), null);
                         Main.coinflips.saveConfig();
                         e.getClickedInventory().clear(e.getSlot());
@@ -67,7 +67,7 @@ public class InventoryListener implements Listener {
                 int amount = Integer.parseInt(amount_split[1]);
                 if (Main.coinflips.getConfig().contains("coinflips." + opponent_uuid)) {
                     if (Econ.getbalance(e.getWhoClicked().getName()) >= amount) {
-                        Econ.removeMoney(e.getWhoClicked().getName(), amount);
+                        Econ.removeMoney((OfflinePlayer) e.getWhoClicked(), amount);
                         initialiseCoinflip(e.getWhoClicked().getUniqueId(), opponent_uuid);
                         e.getWhoClicked().closeInventory();
                     } else {
@@ -85,6 +85,10 @@ public class InventoryListener implements Listener {
     }
 
     public void initialiseCoinflip(UUID player, UUID opponent) {
+        String message = Chat.colored(Main.config.getConfig().getString("Messages.VinderenBliverFundet"));
+
+        OfflinePlayer offline_player1 = Bukkit.getOfflinePlayer(player);
+        String player1_name  = offline_player1.getName();
         Player player1 = Bukkit.getPlayer(player);
 
         OfflinePlayer offline_opponent1 = Bukkit.getOfflinePlayer(opponent);

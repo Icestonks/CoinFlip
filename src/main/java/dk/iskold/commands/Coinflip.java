@@ -1,6 +1,7 @@
 package dk.iskold.commands;
 
 import dk.iskold.Main;
+import dk.iskold.task.UpdadteInv;
 import dk.iskold.utils.Chat;
 import dk.iskold.utils.Econ;
 import dk.iskold.utils.Format;
@@ -67,6 +68,8 @@ public class Coinflip implements CommandExecutor {
 
             inv.setItem(49, GUI.createItemStack(GUI.getSkull(middle), Chat.colored("&f&lSide"), "&fSide: &70/" + Math.round(size / (9 * 6))));
 
+            BukkitScheduler scheduler = Bukkit.getScheduler();
+            scheduler.scheduleSyncRepeatingTask(yourPlugin, new UpdateInvTask(player), 0L, 40L);
             p.openInventory(inv);
             return true;
         }
@@ -102,7 +105,7 @@ public class Coinflip implements CommandExecutor {
                     Main.coinflips.getConfig().set("coinflips." + uuid, penge);
                     Main.coinflips.saveConfig();
                     sender.sendMessage(Chat.colored(Main.config.getConfig().getString("Messages.Oprettet").replaceAll("%num%", Format.formatNum(penge))));
-                    Econ.removeMoney(p.getName(), penge);
+                    Econ.removeMoney(p, penge);
                     return true;
 
                 } else {
@@ -118,7 +121,7 @@ public class Coinflip implements CommandExecutor {
         }
         if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("fjern")) {
             if (Main.coinflips.getConfig().contains("coinflips." + uuid)) {
-                Econ.addMoney(p.getName(), Double.parseDouble(String.valueOf(Main.coinflips.getConfig().getDouble("coinflips." + uuid))));
+                Econ.addMoney(p, Double.parseDouble(String.valueOf(Main.coinflips.getConfig().getDouble("coinflips." + uuid))));
                 sender.sendMessage(Chat.colored(Main.config.getConfig().getString("Messages.DuFjernedCoinflip")));
                 Main.coinflips.getConfig().set("coinflips." + uuid, null);
                 Main.coinflips.saveConfig();
