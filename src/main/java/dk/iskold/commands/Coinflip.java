@@ -17,6 +17,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.List;
 import java.util.Objects;
@@ -68,8 +69,7 @@ public class Coinflip implements CommandExecutor {
 
             inv.setItem(49, GUI.createItemStack(GUI.getSkull(middle), Chat.colored("&f&lSide"), "&fSide: &70/" + Math.round(size / (9 * 6))));
 
-            BukkitScheduler scheduler = Bukkit.getScheduler();
-            scheduler.scheduleSyncRepeatingTask(yourPlugin, new UpdateInvTask(player), 0L, 40L);
+            
             p.openInventory(inv);
             return true;
         }
