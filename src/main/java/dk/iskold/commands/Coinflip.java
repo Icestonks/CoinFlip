@@ -32,36 +32,7 @@ public class Coinflip implements CommandExecutor {
         UUID uuid = ((Player) sender).getUniqueId();
 
         if (args.length == 0) {
-            Inventory inv = Bukkit.createInventory(null, 9 * 6, name);
-
-            int size = 0;
-            int n = 0;
-            inv.setItem(53, GUI.createItemStack(GUI.getSkull(help_head), primary_color + Chat.colored("&lOPRET COINFLIP"), "&7", "&8➥ " + primary_color + "&lOPRET COINFLIP", "&7", "&fDu kan lave dit eget", "&fcoinflip med commanden:", "&7", "&8● " + primary_color + "/coinflip opret <Antal>", "&7"));
-
-            ConfigurationSection coinflipsSection = Main.coinflipsYML.getConfigurationSection("coinflips");
-            if (coinflipsSection != null) {
-                for (String key : Main.coinflipsYML.getConfigurationSection("coinflips").getKeys(true)) {
-                    UUID p_uuid = UUID.fromString(key);
-                    if (!Objects.equals(p_uuid, uuid)) {
-
-                        OfflinePlayer player = Bukkit.getOfflinePlayer(p_uuid);
-                        String playerName = player.getName();
-
-                        ItemStack head = GUI.getPlayerSkull(playerName);
-                        inv.setItem(n, GUI.createItemStack(head, Chat.colored(primary_color + "&lCOINFLIP " + (n + 1)), "&7", "&8● &fSpiller &8» " + primary_color + playerName, "&8● &fAntal &8» " + primary_color + Main.coinflipsYML.getInt("coinflips." + key)));
-                        size++;
-                        n++;
-
-                    } else {
-                        inv.setItem(45, GUI.createItemStack(GUI.getPlayerSkull(p.getName()), Chat.colored(primary_color + "&lDIT COINFLIP"), "&7", "&8● &fDit navn &8» " + primary_color + p.getName(), "&8● &fAntal &8» " + primary_color + Main.coinflipsYML.getInt("coinflips." + key), "&7", "&fTryk for at", "&cslette&f dit coinflip!", "&7", "&7&o((Venstreklik))"));
-                    }
-                }
-            }
-
-            inv.setItem(49, GUI.createItemStack(GUI.getSkull(middle), Chat.colored("&f&lSide"), "&fSide: &70/" + Math.round(size / (9 * 6))));
-
-            
-            p.openInventory(inv);
+            openCoinFlipMenu(p, 0);
             return true;
         }
 
